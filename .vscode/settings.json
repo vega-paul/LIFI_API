@@ -1,0 +1,11 @@
+{
+    "python.testing.pytestArgs": [
+        "tests",
+        "--log-file=pytest.log",
+        "--log-file-level=INFO",
+        "--log-file-format=%(asctime)s [%(levelname)8s] %(name)s: %(message)s",
+        "--log-file-date-format=%Y-%m-%d %H:%M:%S"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true
+}
