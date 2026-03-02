@@ -81,10 +81,4 @@ jobs:
         DEFAULT_BRANCH: main
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         VALIDATE_PYTHON: true
-        PYTHON_BLACK: false
-        PYTHON_FLAKE8: false
-        PYTHON_ISORT: false
-        VALIDATE_JAVASCRIPT: false
-        VALIDATE_CSS: false
-        VALIDATE_HTML: false
         VALIDATE_JSON: true
