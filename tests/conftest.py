@@ -1,7 +1,7 @@
 import pytest
 import logging
 from playwright.sync_api import sync_playwright
-from config import config
+from tests.config import config
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)

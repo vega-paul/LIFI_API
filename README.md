@@ -12,6 +12,7 @@ This project implements a comprehensive automated API test suite for the LIFI bl
 
 - ✅ **Complete Test Coverage**: Happy path, edge cases, and negative testing
 - ✅ **Schema Validation**: Pydantic models for response validation against OpenAPI spec
+- ✅ **Property-Based Testing**: Automated test case generation using Schemathesis for comprehensive API validation
 - ✅ **Authentication Testing**: Both authenticated and unauthenticated scenarios
 - ✅ **Comprehensive Error Handling**: Invalid inputs, missing fields, unsupported combinations
 - ✅ **Detailed Logging**: Request/response logging for debugging
@@ -44,7 +45,7 @@ pip install -r requirements.txt
 
 If requirements.txt doesn't exist, install manually:
 ```bash
-pip install pytest playwright pydantic python-dotenv requests
+pip install pytest playwright pydantic python-dotenv requests schemathesis pytest-html
 playwright install
 ```
 
@@ -81,6 +82,9 @@ pytest tests/test_routes.py -v
 
 # Tools endpoint tests
 pytest tests/test_api.py -v
+
+# Property-based API tests with Schemathesis
+pytest tests/test_schemathesis.py -v
 ```
 
 ### Run with Detailed Logging
@@ -109,6 +113,7 @@ lifi-api-tests/
 │   ├── test_quote.py        # Quote endpoint tests
 │   ├── test_routes.py       # Routes endpoint tests
 │   ├── test_api.py          # Tools endpoint tests
+│   ├── test_schemathesis.py # Property-based API testing with Schemathesis
 │   └── __pycache__/
 ├── reports/                 # Test reports and results
 ├── .env                     # Environment variables (not committed)
@@ -137,6 +142,12 @@ lifi-api-tests/
 - All responses validated against Pydantic models
 - Comprehensive field validation
 - Type checking and constraint validation
+
+### Property-Based Testing
+- **Schemathesis Integration**: Automated test case generation from OpenAPI specification
+- **Endpoint Coverage**: Tests for `/v1/quote`, `/v1/advanced/routes`, and `/v1/tools` endpoints
+- **Schema Compliance**: Validates API responses against the OpenAPI schema automatically
+- **Edge Case Discovery**: Generates diverse test inputs to uncover potential issues
 
 ## Configuration
 
@@ -180,29 +191,30 @@ Any issues found during testing are documented in the `reports/` directory with:
 A GitHub Actions workflow is included for automated testing:
 
 ```yaml
-# .github/workflows/api-tests.yml
-name: API Tests
-on: [push, pull_request]
+# .github/workflows/ci.yml
+name: CI
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.12'
-      - name: Install dependencies
-        run: |
-          pip install -r requirements.txt
-          playwright install
-      - name: Run tests
-        run: pytest tests/ --html=reports/test_report.html
-      - name: Upload test results
-        uses: actions/upload-artifact@v3
-        with:
-          name: test-results
-          path: reports/
+    - uses: actions/checkout@v4
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Run tests
+      run: |
+        mkdir -p reports
+        pytest --html=reports/test_report.html --tb=short
 ```
 
 ## Troubleshooting

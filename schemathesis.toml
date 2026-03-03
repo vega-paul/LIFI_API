@@ -1,0 +1,9 @@
+# Schemathesis configuration for LIFI API testing
+
+# Output sanitization settings
+[output.sanitization]
+enabled = false
+
+# Generation settings
+[generation]
+max-examples = 50

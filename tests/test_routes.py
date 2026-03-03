@@ -1,8 +1,8 @@
 import os
 import pytest
 import logging
-from config import config
-from schemas import RoutesResponse
+from tests.config import config
+from tests.schemas import RoutesResponse
 from pydantic import ValidationError
 from test_data.pairs import ROUTE_TEST_PAIRS
 

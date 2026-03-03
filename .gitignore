@@ -1,2 +1,5 @@
 pytest.log
 DELIVERABLES_SUMMARY.md
+.hypothesis
+__pycache__
+tests/__pycache__

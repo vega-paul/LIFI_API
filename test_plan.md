@@ -10,15 +10,16 @@ Comprehensive testing of the LIFI API endpoints to ensure functionality, reliabi
 
 ## Approach
 - **Automation Framework:** Playwright API for HTTP request/response handling
-- **Test Strategy:** Combination of automated functional testing and manual verification
+- **Test Strategy:** Combination of automated functional testing, property-based testing, and manual verification
 - **Coverage Areas:**
   - Functional testing (happy paths)
   - Input validation and error handling
   - Response schema validation
   - Authentication and authorization
   - Edge cases and boundary conditions
+  - Property-based testing with Schemathesis
 - **Data Strategy:** Mix of static test data and dynamic data retrieved from the API
-- **Validation:** Pydantic schemas for response validation against OpenAPI specification
+- **Validation:** Pydantic schemas for response validation against OpenAPI specification, plus automated schema validation with Schemathesis
 
 ## Test Cases
 
@@ -65,6 +66,19 @@ Comprehensive testing of the LIFI API endpoints to ensure functionality, reliabi
 - **TC-ROUTES-NEG-005:** Invalid token address (0xInvalidAddress)
 - **TC-ROUTES-NEG-006:** Missing API key (401/403 expected)
 - **TC-ROUTES-NEG-007:** Invalid API key (401/403 expected)
+
+### Property-Based Testing with Schemathesis
+- **TC-SCHEMATHESIS-001:** Automated test case generation for `/v1/quote` endpoint
+  - Validates schema compliance for all generated inputs
+  - Tests undocumented status codes and edge cases
+- **TC-SCHEMATHESIS-002:** Automated test case generation for `/v1/advanced/routes` endpoint
+  - Validates schema compliance for all generated inputs
+  - Tests unsupported HTTP methods and malformed requests
+- **TC-SCHEMATHESIS-003:** Automated test case generation for `/v1/tools` endpoint
+  - Validates schema compliance for all generated inputs
+  - Tests unsupported HTTP methods and edge cases
+- **Schema Validation:** All responses validated against OpenAPI specification automatically
+- **Edge Case Discovery:** Generates diverse test inputs to uncover potential API issues
 
 ### Non-Functional Testing
 - **Performance:** Response times within acceptable limits (< 5 seconds)
@@ -154,7 +168,8 @@ TEST_PAIRS = [
 2. Run smoke tests to verify API connectivity
 3. Execute functional tests (happy paths)
 4. Execute negative and edge case tests
-5. Generate comprehensive test reports
+5. Run Schemathesis property-based tests (integrated into pytest test suite)
+6. Generate comprehensive test reports (including HTML bug reports from Schemathesis)
 
 ### Success Criteria
 - All happy path tests pass (100% success rate)

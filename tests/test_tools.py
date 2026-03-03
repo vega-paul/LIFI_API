@@ -1,8 +1,8 @@
 import os
 import pytest
 import logging
-from config import config
-from schemas import ToolsResponse
+from tests.config import config
+from tests.schemas import ToolsResponse
 from pydantic import ValidationError
 
 logger = logging.getLogger(__name__)

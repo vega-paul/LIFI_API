@@ -1,8 +1,8 @@
 import os
 import pytest
 import logging
-from config import config
-from schemas import QuoteResponse
+from tests.config import config
+from tests.schemas import QuoteResponse
 from pydantic import ValidationError
 from test_data.pairs import TEST_PAIRS
 
