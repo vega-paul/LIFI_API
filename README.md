@@ -149,6 +149,32 @@ lifi-api-tests/
 - **Schema Compliance**: Validates API responses against the OpenAPI schema automatically
 - **Edge Case Discovery**: Generates diverse test inputs to uncover potential issues
 
+## API Specification
+
+### OpenAPI Specification (`openapi.yaml`)
+
+The project uses the official LI.FI API OpenAPI 3.0.2 specification file (`openapi.yaml`) for automated testing and validation.
+
+**Purpose:**
+- **API Contract**: Defines the complete API structure including endpoints, parameters, request/response schemas, and authentication
+- **Schemathesis Input**: Serves as the source specification for generating comprehensive property-based tests
+- **Schema Validation**: Enables automatic validation that API responses conform to documented schemas
+- **Documentation**: Provides machine-readable API documentation for automated tooling
+
+**Source:**
+The `openapi.yaml` file is obtained from LI.FI's official documentation site:
+- **URL**: https://docs.li.fi/openapi.yaml
+- **Version**: 3.0.2
+- **API Version**: 1.0.0
+
+**Usage:**
+```bash
+# Download the latest specification (optional - already included in repo)
+curl -o openapi.yaml https://docs.li.fi/openapi.yaml
+```
+
+The specification includes detailed definitions for all LI.FI API endpoints, enabling Schemathesis to automatically generate thousands of test cases covering edge cases, invalid inputs, and schema compliance validation.
+
 ## Configuration
 
 ### Test Configuration (pytest.ini)
